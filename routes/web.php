@@ -19,4 +19,9 @@ Route::group(['middleware' => ['auth'],
 ], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+
+    Route::resource('/institution', App\Http\Controllers\InstitutionController::class);
+
+    Route::resource('/guests', App\Http\Controllers\GuestController::class)->only(['index','show','destroy']);
+
 });
