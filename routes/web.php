@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\FormGuestController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FormGuestController::class, 'index'])->name('form.index');
+Route::post('/', [FormGuestController::class, 'store'])->name('form.store');
 
 Auth::routes([
     'register' => false,
@@ -23,5 +23,7 @@ Route::group(['middleware' => ['auth'],
     Route::resource('/institution', App\Http\Controllers\InstitutionController::class);
 
     Route::resource('/guests', App\Http\Controllers\GuestController::class)->only(['index','show','destroy']);
+
+    Route::get('/report', [App\Http\Controllers\ReportController::class, 'index'])->name('report.index');
 
 });
